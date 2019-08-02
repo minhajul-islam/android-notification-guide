@@ -5,6 +5,9 @@
 -------------------------------------------------------------------------------
 normaly "notification tray" catch data and we see notification when background .
 if you need to customize notification you need to  implement service
+
+https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSeuIbLFyaAYAZJCQdi7rnh_5PfifbHC5bFQSWMFpE_eWveK82ig
+
 like
     1.show big image on notification 
     2.customization data
