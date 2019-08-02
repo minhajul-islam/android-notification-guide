@@ -6,7 +6,8 @@
 normaly "notification tray" catch data and we see notification when background .
 if you need to customize notification you need to  implement service
 
-![alt text](https://docs.microsoft.com/en-us/xamarin/android/app-fundamentals/services/service-notifications-images/02-fullnotification.png | width=100)
+
+<img src="https://docs.microsoft.com/en-us/xamarin/android/app-fundamentals/services/service-notifications-images/02-fullnotification.png" width="100">
 
 
 
