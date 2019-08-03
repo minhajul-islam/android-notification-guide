@@ -5,14 +5,14 @@
  "notification" : {
      "body" : "Body : Notification",
      "title": "Title : Notification",
-     "image":"https://www.learndash.com/wp-content/uploads/Notification-Add-on.png"
+     "image":"https://www.learndash.com/wp-content/uploads/Notification-Add-on.png",
+     "picture_url":"https://metaltechalley.com/wp-content/uploads/2017/09/data.jpg"
      
  },
  "data" : {
      "body" : "Body : Data",
      "title": "Title : Data",
-     "image":"https://metaltechalley.com/wp-content/uploads/2017/09/data.jpg",
-     "picture_url":"https://metaltechalley.com/wp-content/uploads/2017/09/data.jpg"
+     "image":"https://metaltechalley.com/wp-content/uploads/2017/09/data.jpg"
      
  }
 }
