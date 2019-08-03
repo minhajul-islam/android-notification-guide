@@ -7,7 +7,7 @@ implementation 'com.google.firebase:firebase-messaging:19.0.1' <br />
 
 android manifest(example)
 -------------------------------
-write on <application> </application> tag
+write on application tag
 ```
 
  <meta-data
