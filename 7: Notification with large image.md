@@ -18,7 +18,7 @@ API Json
 }
 ```
 
-How works
+How works(it depens on service,how you implement service, i tried to show image 4 possible case)
 
 
 |  Table  |                         Background                        |                         foreground                        |
