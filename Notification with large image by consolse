@@ -1,0 +1,110 @@
+1..............................................................................................
+implementation 'com.google.firebase:firebase-messaging:18.0.0'  //if androidX then use 20.0.0
+
+2........................................................................
+import android.util.Log;
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
+import java.util.Map;
+
+public class MyFirebaseMessagingService extends FirebaseMessagingService {
+
+    @Override
+    public void onMessageReceived(RemoteMessage remoteMessage) {
+        super.onMessageReceived(remoteMessage);
+
+        RemoteMessage.Notification notification = remoteMessage.getNotification();
+        Map<String, String> data = remoteMessage.getData();
+
+        Log.e("mnotificatin",""+notification.getBody());
+        Log.e("mnotificatin",""+notification.getImageUrl());
+        Log.e("mnotificatin",""+notification.getBody());
+
+    }
+
+    //new to add 2
+    
+
+}
+
+
+3...................................................................................
+
+<uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    
+    <service
+            android:name=".service.MyFirebaseMessagingService"
+            android:stopWithTask="false">
+            <intent-filter>
+
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorPrimaryDark" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/notification" />
+            
+4...................................................................................
+private void showNotification(RemoteMessage.Notification notification, Map<String, String> data) {
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "channel_id")
+                .setContentTitle(notification.getTitle()+" by service")
+                .setContentText(notification.getBody()+" by service")
+                .setAutoCancel(true)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                .setContentIntent(pendingIntent)
+                .setContentInfo(notification.getTitle())
+                .setColor(Color.RED)
+                .setLights(Color.RED, 1000, 300)
+                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setLargeIcon(icon)
+                .setSmallIcon(R.drawable.notification);
+
+        try {
+            if(notification.getImageUrl()!=null) {
+                URL url = new URL(notification.getImageUrl().toString());
+                Bitmap bigPicture = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                notificationBuilder.setStyle(
+                        new NotificationCompat.BigPictureStyle().bigLargeIcon(bigPicture).bigPicture(bigPicture).setSummaryText(notification.getBody()+" by service expanding notification")
+                );
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Notification Channel is required for Android O and above
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                    "channel_id", "channel_name", NotificationManager.IMPORTANCE_DEFAULT
+            );
+            channel.setDescription("channel description");
+            channel.setShowBadge(true);
+            channel.canShowBadge();
+            channel.enableLights(true);
+            channel.setLightColor(Color.RED);
+            channel.enableVibration(true);
+            channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500});
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        notificationManager.notify(0, notificationBuilder.build());
+    }
+
+5...............................
+showNotification(notification, data);
+
