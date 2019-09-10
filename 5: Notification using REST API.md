@@ -1,3 +1,18 @@
+send notification to specific user firebase
+1.test by postman:configure
+  url:https://fcm.googleapis.com/fcm/send
+  header:
+      Content-Type:application/json
+      Authorization:key=sever key
+  
+
+
+
+
+
+
+Body: user(by token)
+
 ```
 {
  "to" : "fPNtXgtDLP8:APA91bGq0jud-0QonR81k5cN6nmLds5IL37Lc8gktXOIXKVjNjAb5V7np3Tbz609rH90vyWotC9OZ6B7AVFPcyXXjnrwq1tHyw6945RozB7RRA-AguRNChSqXP6U8ghecoQZgyQABzWB",
@@ -16,3 +31,13 @@
  }
 }
 ```
+
+2.get user token
+FirebaseApp.initializeApp(this);
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String token = instanceIdResult.getToken();
+                Log.e("notification", "Refreshed token: " + token);
+            }
+        });
