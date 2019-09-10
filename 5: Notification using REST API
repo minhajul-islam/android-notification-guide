@@ -41,3 +41,22 @@ FirebaseApp.initializeApp(this);
                 Log.e("notification", "Refreshed token: " + token);
             }
         });
+        
+        
+3.
+String picture_url = data.get("image");
+            if (picture_url != null && !"".equals(picture_url)) {
+                URL url = new URL(picture_url);
+                Bitmap bigPicture = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                notificationBuilder.setStyle(
+                        new NotificationCompat.BigPictureStyle().bigLargeIcon(bigPicture).bigPicture(bigPicture).setSummaryText(notification.getBody()+" by service expanding notification")
+                );
+            }else {
+                if(notification.getImageUrl()!=null) {
+                    URL url = new URL(notification.getImageUrl().toString());
+                    Bitmap bigPicture = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                    notificationBuilder.setStyle(
+                            new NotificationCompat.BigPictureStyle().bigLargeIcon(bigPicture).bigPicture(bigPicture).setSummaryText(notification.getBody()+" by service expanding notification")
+                    );
+                }
+            }
